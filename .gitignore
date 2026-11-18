@@ -1,0 +1,8 @@
+node_modules/
+coverage/
+.env
+*.log
+
+# Configuración personal de Claude Code (no se comparte)
+.claude/settings.local.json
+CLAUDE.local.md
