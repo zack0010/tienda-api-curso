@@ -1,0 +1,4 @@
+# Finales de línea LF en todos los sistemas. Los scripts .sh de los hooks
+# no funcionan en Git Bash si se guardan con CRLF.
+* text=auto eol=lf
+*.sh text eol=lf
