@@ -1,0 +1,59 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test *)",
+      "Bash(npx vitest run *)",
+      "Bash(npm run lint *)",
+      "Bash(npm run typecheck *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)"
+    ],
+    "ask": ["Bash(git push *)"],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push * --force*)",
+      "Bash(git push * -f*)",
+      "Bash(git reset --hard*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit *)",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/proteger-ramas.sh\""
+          },
+          {
+            "type": "command",
+            "if": "PowerShell(git commit *)",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/proteger-ramas.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit *)",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/validar-commit.sh\""
+          },
+          {
+            "type": "command",
+            "if": "PowerShell(git commit *)",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/validar-commit.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
